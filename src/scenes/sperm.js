@@ -18,7 +18,7 @@ export class SpermScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('fondo_automata', '/assets/fondo_automata.png');
+    this.load.image('fondo_automata', `${import.meta.env.BASE_URL}assets/fondo_automata.png`);
   }
 
   create() {

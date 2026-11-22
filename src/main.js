@@ -20,8 +20,8 @@ class MainController extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('win', '/assets/win.png');
-    this.load.image('lose', '/assets/lose.png');
+    this.load.image('win', `${import.meta.env.BASE_URL}assets/win.png`);
+    this.load.image('lose', `${import.meta.env.BASE_URL}assets/lose.png`);
   }
 
   create() {

@@ -42,3 +42,19 @@ Se gana al alcanzar 50 células vivas en el autómata. La partida termina si el 
 - `public/assets/`: imágenes utilizadas por el juego.
 
 Las dependencias se declaran en `package.json` y `package-lock.json`. La carpeta `node_modules` no se incluye; se genera localmente al ejecutar `npm install`.
+
+## Publicación en GitHub Pages
+
+El proyecto está configurado para publicarse como sitio de proyecto en:
+`https://<TU-USUARIO>.github.io/Simulacion-II-Parcial/`. La opción `base` de
+`vite.config.js` y las rutas de imágenes usan esa subruta. Si cambiás el nombre
+del repositorio, actualizá también `base` en `vite.config.js`.
+
+La publicación está automatizada mediante GitHub Actions en
+`.github/workflows/deploy.yml`. En GitHub, abrí **Settings → Pages** y elegí
+**GitHub Actions** como fuente de publicación. Cada `push` a la rama `main`
+instala las dependencias con `npm ci`, ejecuta `npm run build` y publica `dist/`.
+También podés iniciar el flujo manualmente desde la pestaña **Actions**.
+
+No se incluye `node_modules`; GitHub Actions instala las dependencias a partir
+de `package-lock.json`.

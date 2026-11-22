@@ -14,8 +14,8 @@ export class LiquidScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('aguja', '/assets/aguja.png');
-    this.load.image('rampa', '/assets/rampa.png');
+    this.load.image('aguja', `${import.meta.env.BASE_URL}assets/aguja.png`);
+    this.load.image('rampa', `${import.meta.env.BASE_URL}assets/rampa.png`);
   }
 
   create() {
