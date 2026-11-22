@@ -13,7 +13,6 @@ export class SpermScene extends Phaser.Scene {
     this.cellCount = 0;
     this.countText = null;
     this.graphics = null;
-
     this.handleLiquidHit = (data) => this.spawnAutomataFromLiquid(data);
   }
 
@@ -40,21 +39,18 @@ export class SpermScene extends Phaser.Scene {
     background.setAlpha(0.35);
 
     this.graphics = this.add.graphics();
-
     this.add.text(20, 20, 'PANTALLA 2: Juego de la Vida', {
       fontSize: '18px',
       color: '#ff2e63',
       fontStyle: 'bold'
     });
-
     this.countText = this.add.text(20, 45, 'Células Vivas: 0', {
       fontSize: '15px',
       color: '#00fff5',
       fontStyle: 'bold'
     });
 
-    // Cada impacto agrega un patrón. Se quita el listener al apagar esta escena,
-    // así los reinicios no dejan callbacks antiguos ni duplican los impactos.
+    // Un único listener procesa cada impacto. Se retira al cerrar la escena.
     this.game.events.on('liquid-hit-bottom', this.handleLiquidHit);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.game.events.off('liquid-hit-bottom', this.handleLiquidHit);
@@ -62,10 +58,7 @@ export class SpermScene extends Phaser.Scene {
   }
 
   createEmptyGrid() {
-    return Array.from(
-      { length: this.cols },
-      () => Array(this.rows).fill(0)
-    );
+    return Array.from({ length: this.cols }, () => Array(this.rows).fill(0));
   }
 
   spawnAutomataFromLiquid(data = {}) {
@@ -99,7 +92,6 @@ export class SpermScene extends Phaser.Scene {
 
         const col = targetCol + colOffset - 1;
         const row = targetRow + rowOffset - 1;
-
         if (col >= 0 && col < this.cols && row >= 0 && row < this.rows) {
           this.grid[col][row] = 1;
         }
@@ -118,7 +110,6 @@ export class SpermScene extends Phaser.Scene {
 
         const neighborCol = col + colOffset;
         const neighborRow = row + rowOffset;
-
         if (
           neighborCol >= 0 && neighborCol < this.cols &&
           neighborRow >= 0 && neighborRow < this.rows
@@ -133,12 +124,10 @@ export class SpermScene extends Phaser.Scene {
 
   update(_time, delta) {
     this.elapsedTime += delta;
-
     while (this.elapsedTime >= this.stepInterval) {
       this.elapsedTime -= this.stepInterval;
       this.stepLifeCycle();
     }
-
     this.drawGrid();
   }
 
@@ -150,7 +139,6 @@ export class SpermScene extends Phaser.Scene {
       for (let row = 0; row < this.rows; row += 1) {
         const currentState = this.grid[col][row];
         const neighbors = this.countNeighbors(this.grid, col, row);
-
         if (neighbors === 3 || (currentState === 1 && neighbors === 2)) {
           nextGrid[col][row] = 1;
           aliveCount += 1;
@@ -167,13 +155,11 @@ export class SpermScene extends Phaser.Scene {
 
   updateCellCount() {
     let count = 0;
-
     for (let col = 0; col < this.cols; col += 1) {
       for (let row = 0; row < this.rows; row += 1) {
         if (this.grid[col][row] === 1) count += 1;
       }
     }
-
     this.cellCount = count;
     this.countText.setText(`Células Vivas: ${this.cellCount}`);
   }
@@ -181,12 +167,11 @@ export class SpermScene extends Phaser.Scene {
   drawGrid() {
     this.graphics.clear();
     this.graphics.fillStyle(0x00ff66, 1);
-
     const radius = this.gridSize / 2;
+
     for (let col = 0; col < this.cols; col += 1) {
       for (let row = 0; row < this.rows; row += 1) {
         if (this.grid[col][row] !== 1) continue;
-
         const centerX = col * this.gridSize + radius;
         const centerY = row * this.gridSize + radius;
         this.graphics.fillCircle(centerX, centerY, radius - 1);

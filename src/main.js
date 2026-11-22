@@ -36,14 +36,13 @@ class MainController extends Phaser.Scene {
 
     this.startTimer();
     this.input.keyboard.on('keydown-R', this.restartGame, this);
-
     this.launchGameScenes();
   }
 
   launchGameScenes() {
     this.scene.launch('liquid');
     this.scene.launch('sperm');
-    // Mantiene el temporizador y la pantalla de resultado por encima de ambas escenas.
+    // El temporizador y las pantallas de resultado permanecen por encima.
     this.scene.bringToTop('MainController');
   }
 
@@ -93,11 +92,7 @@ class MainController extends Phaser.Scene {
       this.timerEvent = null;
     }
 
-    this.resultImage = this.add.image(
-      GAME_WIDTH / 2,
-      GAME_HEIGHT / 2,
-      result
-    );
+    this.resultImage = this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, result);
     this.resultImage.setDisplaySize(GAME_WIDTH, GAME_HEIGHT);
     this.resultImage.setDepth(2000);
 
@@ -108,13 +103,6 @@ class MainController extends Phaser.Scene {
   restartGame() {
     this.isGameOver = false;
     this.timeLeft = INITIAL_TIME;
-
-    // Evita que el chequeo de victoria lea el contador de la partida anterior
-    // mientras las escenas están esperando a reiniciarse.
-    const automatonScene = this.scene.get('sperm');
-    if (automatonScene) {
-      automatonScene.cellCount = 0;
-    }
     this.timerText.setText(`Tiempo: ${INITIAL_TIME}s`);
     this.timerText.setColor('#ffffff');
 
@@ -128,8 +116,8 @@ class MainController extends Phaser.Scene {
       this.timerEvent = null;
     }
 
-    // Detener y volver a lanzar las escenas reinicia también sus temporizadores,
-    // partículas, grilla y listeners sin acumular eventos anteriores.
+    // Detener y relanzar las escenas reinicia sus temporizadores, grillas y
+    // listeners, evitando que los eventos se acumulen entre partidas.
     this.scene.stop('liquid');
     this.scene.stop('sperm');
     this.startTimer();

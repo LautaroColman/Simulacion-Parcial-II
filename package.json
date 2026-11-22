@@ -1,5 +1,5 @@
 {
-  "name": "simulacion-ii-parcial",
+  "name": "simulacion-parcial-ii",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -14,7 +14,7 @@
   "dependencies": {
     "phaser": "^4.2.1"
   },
-  "description": "Simulación interactiva del emisor de líquido y el Juego de la Vida con Phaser.",
+  "description": "Simulación interactiva con Phaser y Vite para GitHub Pages.",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   }

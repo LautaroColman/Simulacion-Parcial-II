@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  // GitHub Pages publica este repositorio bajo /Simulacion-II-Parcial/.
-  base: '/Simulacion-II-Parcial/'
+  // GitHub Pages publica este repositorio como sitio de proyecto.
+  base: '/Simulacion-Parcial-II/'
 });

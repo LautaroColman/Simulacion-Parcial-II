@@ -1,29 +1,31 @@
-# Simulación II - Emisor de líquido y Juego de la Vida
+# Simulación Parcial II
 
-Proyecto web realizado con **Phaser 4** y **Vite**. La pantalla está dividida en dos áreas: a la izquierda se emiten gotas que interactúan con un canal móvil y, a la derecha, cada gota que llega al borde inferior genera un patrón en el Juego de la Vida.
+Aplicación web interactiva desarrollada con Phaser y Vite. Presenta un emisor de gotas en la mitad izquierda y una simulación del Juego de la Vida en la mitad derecha.
 
 ## Requisitos
 
-- Node.js 20.19.0 o superior dentro de la rama 20.x, o 22.12.0 o superior.
-- npm (incluido con Node.js).
+- Node.js 20.19.0 o superior dentro de la rama 20.x, o Node.js 22.12.0 o superior.
+- npm.
 
-## Instalación y ejecución
+## Instalación y ejecución local
 
-Desde la carpeta raíz del proyecto, ejecutar:
+Desde la carpeta raíz del proyecto:
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Vite mostrará en la terminal la dirección local para abrir el juego en el navegador.
-
-## Comandos disponibles
+Para generar la versión de producción:
 
 ```bash
-npm run dev      # Inicia el servidor de desarrollo
-npm run build    # Genera la versión de producción en dist/
-npm run preview  # Previsualiza la versión compilada
+npm run build
+```
+
+Para previsualizar la compilación:
+
+```bash
+npm run preview
 ```
 
 ## Controles
@@ -34,27 +36,14 @@ npm run preview  # Previsualiza la versión compilada
 
 Se gana al alcanzar 50 células vivas en el autómata. La partida termina si el temporizador llega a cero.
 
-## Estructura principal
-
-- `src/main.js`: configuración de Phaser, temporizador, victoria, derrota y reinicio.
-- `src/scenes/liquid.js`: emisor de gotas, canal móvil y detección de impactos.
-- `src/scenes/sperm.js`: grilla y reglas del Juego de la Vida.
-- `public/assets/`: imágenes utilizadas por el juego.
-
-Las dependencias se declaran en `package.json` y `package-lock.json`. La carpeta `node_modules` no se incluye; se genera localmente al ejecutar `npm install`.
-
 ## Publicación en GitHub Pages
 
 El proyecto está configurado para publicarse como sitio de proyecto en:
-`https://<TU-USUARIO>.github.io/Simulacion-II-Parcial/`. La opción `base` de
-`vite.config.js` y las rutas de imágenes usan esa subruta. Si cambiás el nombre
-del repositorio, actualizá también `base` en `vite.config.js`.
 
-La publicación está automatizada mediante GitHub Actions en
-`.github/workflows/deploy.yml`. En GitHub, abrí **Settings → Pages** y elegí
-**GitHub Actions** como fuente de publicación. Cada `push` a la rama `main`
-instala las dependencias con `npm ci`, ejecuta `npm run build` y publica `dist/`.
-También podés iniciar el flujo manualmente desde la pestaña **Actions**.
+`https://<TU-USUARIO>.github.io/Simulacion-Parcial-II/`
 
-No se incluye `node_modules`; GitHub Actions instala las dependencias a partir
-de `package-lock.json`.
+La ruta base se configura en `vite.config.js`. Si cambiás el nombre del repositorio, actualizá también esa propiedad.
+
+La publicación está automatizada mediante GitHub Actions en `.github/workflows/deploy.yml`. En GitHub, abrí **Settings → Pages** y elegí **GitHub Actions** como fuente de publicación. Cada `push` a `main` o `master` ejecuta la instalación con `npm ci`, compila con `npm run build` y publica la carpeta `dist/`. También se puede iniciar el flujo manualmente desde la pestaña **Actions**.
+
+No se incluye `node_modules`, `.git` ni `dist`; GitHub Actions instala las dependencias desde `package-lock.json` y genera el directorio de publicación.

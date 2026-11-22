@@ -23,8 +23,6 @@ export class LiquidScene extends Phaser.Scene {
 
     const width = this.scale.width / 2;
     const height = this.scale.height;
-
-    // La escena ocupa únicamente la mitad izquierda del canvas.
     this.cameras.main.setViewport(0, 0, width, height);
 
     if (!this.textures.exists('micro_drop')) {
@@ -47,7 +45,6 @@ export class LiquidScene extends Phaser.Scene {
       color: '#94a3b8',
       fontFamily: 'Courier New'
     };
-
     const infoTexts = [
       this.add.text(20, 45, 'Arrastra con el mouse para mover el canal', textStyle),
       this.add.text(20, 63, 'Llega a 50 células para ganar', textStyle),
@@ -114,13 +111,11 @@ export class LiquidScene extends Phaser.Scene {
     this.input.on('pointerup', () => {
       this.isDragging = false;
     });
-
     this.input.on('pointerupoutside', () => {
       this.isDragging = false;
     });
   }
 
-  // Construye las cuatro piezas que forman las alas y el canal central.
   createMovableFunnel(centerX, topY, sceneWidth) {
     this.funnelParts = [];
 
@@ -155,10 +150,7 @@ export class LiquidScene extends Phaser.Scene {
     );
 
     [leftWing, rightWing, leftWall, rightWall].forEach((sprite) => {
-      this.funnelParts.push({
-        sprite,
-        offsetX: sprite.x - centerX
-      });
+      this.funnelParts.push({ sprite, offsetX: sprite.x - centerX });
     });
   }
 
